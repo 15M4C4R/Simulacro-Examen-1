@@ -25,4 +25,19 @@ const restaurantHasNoOrders = async (req, res, next) => {
   }
 }
 
-export { checkRestaurantOwnership, restaurantHasNoOrders }
+const checkOdersAreDelivered = async (req,res,next) => {
+  try{
+    const order = await Order.findOne({
+      where:{
+        restaurantId : req.params.restaurantId,
+        deliverAt : null
+      }
+    })
+    if(!order) {return next()}
+    return res.status(409).message('There are orders not delivered')
+  }catch (err){
+    return res.status(500).send(err)
+  }
+}
+
+export { checkRestaurantOwnership, restaurantHasNoOrders, checkOdersAreDelivered }
