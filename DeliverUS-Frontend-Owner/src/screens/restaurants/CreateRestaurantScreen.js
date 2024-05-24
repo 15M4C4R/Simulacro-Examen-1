@@ -207,7 +207,26 @@ export default function CreateRestaurantScreen ({ navigation }) {
               {backendErrors &&
                 backendErrors.map((error, index) => <TextError key={index}>{error.param}-{error.msg}</TextError>)
               }
-
+              
+               <Pressable
+                onPress={() => navigation.navigate('CreateRestaurantCategoryScreen')
+                }
+                style={({ pressed }) => [
+                {
+                 backgroundColor: pressed
+                    ? GlobalStyles.brandBlueTap
+                    : GlobalStyles.brandBlue
+                },
+              styles.actionButton
+            ]}>
+          <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
+            <MaterialCommunityIcons name='folder-plus-outline' color={'white'} size={20}/>
+            <TextRegular textStyle={styles.text}>
+              Create a new Restaurant Category
+            </TextRegular>
+          </View>
+        </Pressable>
+              
               <Pressable
                 onPress={handleSubmit}
                 style={({ pressed }) => [
